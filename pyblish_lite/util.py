@@ -4,8 +4,8 @@ from __future__ import (absolute_import, division, print_function,
 import os
 import sys
 
-from .vendor.Qt import QtCore
-from .vendor.six import text_type
+from Qt import QtCore
+from six import text_type
 
 root = os.path.dirname(__file__)
 

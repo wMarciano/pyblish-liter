@@ -1,0 +1,16 @@
+[project]
+name = "pyblish-liter"
+version = "0.8.12"
+requires-python = ">=3.6"
+dependencies = [
+    "pyblish-base>=1.4",
+    "qt-py",
+    "qtawesome",
+    "six",
+]
+
+[dependency-groups]
+dev = [
+    "pyside6",
+    "pytest",
+]

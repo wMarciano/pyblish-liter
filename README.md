@@ -1,3 +1,9 @@
+### pyblish-liter
+
+Extremely simple fork just to remove bundled dependencies and let the environment handle them, as most environments with pyblish will also already have Qt.py, six, etc.
+
+All the actual heavy lifting and credit goes to the pyblish team/community. My name being on this is a mere formality. As such, I haven't put this on PyPi. If that is valuable to anyone, let me know. For now, it can be installed via `pip install git+https://github.com/wmarciano/pyblish-liter.git@master`.
+
 ### Pyblish Lite
 
 [![Build Status](https://travis-ci.org/pyblish/pyblish-lite.svg?branch=master)](https://travis-ci.org/pyblish/pyblish-lite) [![Coverage Status](https://coveralls.io/repos/github/pyblish/pyblish-lite/badge.svg?branch=master)](https://coveralls.io/github/pyblish/pyblish-lite?branch=master)
@@ -230,7 +236,7 @@ Tests are automatically run at each commit to GitHub via Travis-CI. You can run 
 ```bash
 $ cd pyblish-lite
 $ export PYTHONPATH=/path/to/Qt.py:/path/to/pyside:/path/to/pyblish-base
-$ nosetests --verbose --with-doctext --exclude=vendor
+$ nosetests --verbose --with-doctext
 ```
 
 **Option 2**

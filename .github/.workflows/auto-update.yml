@@ -1,0 +1,49 @@
+name: Auto Update Fork with Upstream Changes
+# This workflow should keep the fork up to date with whatever happens upstream, as long as its simple.
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  sync-and-rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # if anybody better way to find the fork point you could save PICOSECONDS of compute for me!
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add Upstream Remote
+        run: |
+          git remote add upstream https://github.com/pyblish/pyblish-lite.git
+          git fetch upstream
+
+      - name: Rebase Fork
+        run: |
+          git checkout master
+          git rebase upstream/master
+
+      - name: Set up Docker Buildx
+        uses: actions/github-actions/images/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        run: docker build -t pyblish/pyblish-lite .
+
+      - name: Run Test Suite
+        run: docker run --rm -v $(pwd):/pyblish-lite pyblish/pyblish-lite
+
+      - name: Push Rebased
+        if: success()
+        run: git push origin master --force

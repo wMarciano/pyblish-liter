@@ -1,2 +1,0 @@
-pyblish-base>=1.4
-PySide2>=1
